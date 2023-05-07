@@ -1,31 +1,38 @@
-!(readyToRun)
+$(readyToRun)
+//initialize array to store information
 let infoMatrix=[];
-let deletedIndex=[];
-let inputInfo={};
+//initialize object to store most recent information  
+let inputInfo={}; 
 
-function readyToRun(event) {
-    createObject();
-    //listener for remove buttons
-    $('table').on('click', 'button', removeFromMatrix)
+function readyToRun() {
+    //event handlers for buttons
+    $('table').on('click', 'button', removeFromMatrix);
+    $('buttonBox').on('click', '#inputButton', createObject);
 }
 
-function createObject(event) {
+function createObject() {
+    //save data as variables
     let firstName = $('#firstName').val(), lastName = $('#lastName').val(), idNumber= $('#idNumber').val(), titleInput = $('#titleInput').val(), annualSalary = $('#annualSalary').val();
-    if(firstName===""||lastName===""||idNumber===""||titleInput===""&&annualSalary===""){
+    //test if any fields were blank
+    if(firstName===""||lastName===""||idNumber===""||titleInput===""||annualSalary===""){
         alert("fields empty, please resubmit");
             return;
         }
+    //update our temporary object to hold inputted data
     inputInfo={
-        firstName: firstName, 
-        lastName: lastName,
-        id: idNumber,
-        title: titleInput,
-        annualSalary: annualSalary,
+    firstName: firstName, 
+    lastName: lastName,
+    id: idNumber,
+    title: titleInput,
+    annualSalary: annualSalary,
     };
+    //add our new object to the global array
     infoMatrix.push(inputInfo);
-    console.log(infoMatrix);
+    //update the monthly salary total on the DOM
     updateMonthly();
+    //update the table on the DOM
     addToMatrix();
+    //reset the form
     $('#firstName').val("");
     $('#lastName').val("");
     $('#idNumber').val("");
@@ -33,51 +40,10 @@ function createObject(event) {
     $('#annualSalary').val("");
 }
 
-
 function addToMatrix() {
-    //attempt 1
-    // !("#tableStuff").append(<tr></tr>)
-    // for(let x of infoMatrix) {
-    //     !("#tableStuff").append(<tr></tr>)
-    // }
-
-    //attempt 2
-    // let tempTable
-    // for(let x of infoMatrix) {
-    //     tempTable = $('<table>').addClass(x.firstName);
-    //     console.log(tempTable)
-    //     for(let y in infoMatrix) {
-    //         let row = $('<tr>').addClass('sameTable').text(x.y);
-    //         tempTable.append(row);
-    //     }
-    // }
-    // console.log(tempTable)
-
-    // $('#tableStuff').append(tempTable);
-
-    //attempt 3
-    // $("table").append(
-    //     `<tr class=`+infoMatrix[infoMatrix.length-1].id+`>
-    //         <div class="deletableRow">
-    //             <td>`+infoMatrix[infoMatrix.length-1].firstName+`</td>
-    //             <td>`+infoMatrix[infoMatrix.length-1].lastName+`</td>
-    //             <td class="identifierTag">`+infoMatrix[infoMatrix.length-1].id+`</td>
-    //             <td>`+infoMatrix[infoMatrix.length-1].title+`</td>
-    //             <td>$`+infoMatrix[infoMatrix.length-1].annualSalary+`</td>
-    //             <td>
-    //                 <button type="button" id=`+String(infoMatrix[infoMatrix.length-1].id)+` onclick="removeFromMatrix()">Delete</button>
-    //             </td>
-    //         </div>
-    //     </tr>`
-    // )
-    
-    // console.log(infoMatrix[infoMatrix.length-1].id) //this is the ID number
-    // $(`#${String(infoMatrix[infoMatrix.length-1].id)}`).data(infoMatrix[infoMatrix.length-1].indexNumber, infoMatrix[infoMatrix.length-1].indexNumber);
-    // let dataStored = $(`#${String(infoMatrix[infoMatrix.length-1].id)}`).data()
-    // console.log(dataStored);
-
-
+    //empty the table
     $('#tableStuff').empty();
+    //loop through objects, adding each one to the DOM
     for (let x of infoMatrix) {
         $("#tableStuff").append(
             `<tr class=`+x.id+`>
@@ -97,53 +63,44 @@ function addToMatrix() {
 
 }
 
-
 function updateMonthly() {
-    let calculatedTotal=0
+    //initialize variable that will tally total
+    let calculatedTotal=0;
+    //loop through objects adding their monthly salary
     for (let x of infoMatrix) {
         calculatedTotal+=x.annualSalary/12;
     }
+    //remove old monthly total from the DOM
     $('.monthlyTotal').empty();
+    //add new monthly total to the DOM
     $('footer').append(' <div class="monthlyTotal">'+calculatedTotal+'</div>');
+    //CSS styling based on whether we are under budget or over budget
     if (calculatedTotal>20000) {
-        $('.gridded').parent().css('background-color', 'red').css('color', 'white')
+        $('.gridded').parent().css('background-color', 'red').css('color', 'white');
     } else {
-        $('.gridded').parent().css('background-color', 'green')
+        $('.gridded').parent().css('background-color', 'green');
     }
 }
 
-
 function removeFromMatrix(event) {
-
+    //throws a non-fatal error but is necessary for functionality
     event.preventDefault();
-
-    // let indexOfDeletion = $(this).data();
-    // console.log(indexOfDeletion);
-
-    // for(let x of infoMatrix) {
-    //     if ($(this).hasClass(x.id)) {
-    //         console.log('YAUS')
-    //     }
-    // }
+    //initalize a variable and set it equal to the ID number of the 
+    //row of the table that will be removed
     let updateTotal = $(this).closest("tr").children("td.identifierTag").text();
-    console.log(updateTotal);
-
+    //initialize a temporary array that will store the objects not being removed
     let infoMatrixTemporary=[];
-    //need to identify row to be removed
-    // let rowNumber=$(this).attr('id');
-    // console.log(rowNumber);
+    //loop through the objects and add any to the temporary array
+    //that do no correspond to the ID of the row to be removed
     for (let x of infoMatrix) {
-    //need to grab class name of row and replace "1"
         if (!(x.id===updateTotal)) {
-                infoMatrixTemporary.push(x);
-            }
+            infoMatrixTemporary.push(x);
         }
+    }
+    //update the global array to match the temporary one
     infoMatrix=infoMatrixTemporary;
-    console.log(infoMatrix);
-    // $(this).parent().parent().remove();
-
+    //update the monthly total on the DOM to not include the removed data
     updateMonthly();
+    //update the table on the DOM to not include the removed data
     addToMatrix();
 }
-
-
