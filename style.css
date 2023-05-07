@@ -1,0 +1,136 @@
+/*The style in the example is pretty similar to the affirmation app
+assignment, so, I took that as a base.*/
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #313131;
+    font-size: 1.25em;
+    display: flex;
+    flex-direction: column;
+
+}
+
+html, body {
+    min-height: 100vh;
+    margin: 1%;
+}
+
+
+header {
+    height: 8em;
+    background-color: #7a7a7a;
+    text-align: center;
+}
+
+main {
+    flex: auto;
+    max-width: 80%;
+    margin: auto;
+}
+
+header {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+input {
+    padding: .5em;
+    width: 150px;
+    background: #FCFCFC;
+    border: 1px solid;
+}
+button {
+    padding: .5em;
+    width: 75px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    height: 2.15em;
+}
+
+th, td {
+    padding: .5em;
+    min-width: 3.5em;
+}
+
+tbody tr:nth-child(odd){ 
+    background: #fcfcfc;
+}
+
+tbody tr:nth-child(even){
+    background: #dcdcdc;
+}
+
+
+h1 {
+    background-color: gray;
+    text-align: center;
+    color: whitesmoke;
+    margin: 0;
+    padding: 1.5vw;
+    border: 0;
+    font-size: 2em;
+}
+
+.formFields {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+#inputButton {
+    justify-content: flex-end;
+    margin: 8px;
+}
+
+#buttonBox {
+    display: grid;
+    grid-template-columns: 9fr 1fr
+
+}
+
+input {
+    width: 15%;
+
+}
+
+table {
+    border-style: solid;
+    width: 100%;
+    text-align: center;
+
+}
+
+thead {
+    background-color: lightgray;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+.gridded {
+    text-align: right;
+}
+
+footer {
+    height: 100%;
+    display: flex;
+    justify-content: right;
+    padding-right: 5%;
+
+}
+
+#emptyFooter {
+    background-color: lightgray;
+    min-height: 20px;
+    min-width: 90%;
+    border: 1px solid black;
+    display: table;
+    color:lightgray
+}

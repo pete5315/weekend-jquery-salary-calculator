@@ -4,29 +4,40 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link src="styles.css" rel="stylesheet"/>
+    <title>Weekend coding challenge - Monthly Salary Calculator</title>
+    <link href="style.css" rel="stylesheet"/>
     <script src="jquery.js"></script>
     <script src="script.js"></script>
 </head>
 <body>
-    <header>Salary Calculator</header>
+    <header>
+        <h1>Salary Calculator</h1>
+        <br>
+    </header>
     <div>
-        <div>Add employee</div>
-        <div class="formFields">
-            <input placeholder="First Name" id="firstName"/>
-            <input placeholder="Last Name" id="lastName"/>
-            <input placeholder="ID" id="idNumber"/>
-            <input placeholder="Title" id="titleInput"/>
-            <input placeholder="Annual Salary" id="annualSalary"/>
-        </div>
         <div>
-            <button type="button" onclick="readyToRun()">Run the app</button>
+            <h3>Add employee</h3>
         </div>
+        <form>
+            <div class="formFields">
+                <input class = "formInputs" placeholder="First Name" id="firstName"/>
+                <input class = "formInputs" placeholder="Last Name" id="lastName"/>
+                <input class = "formInputs" placeholder="ID" id="idNumber"/>
+                <input class = "formInputs" placeholder="Title" id="titleInput"/>
+                <input class = "formInputs" placeholder="Annual Salary" id="annualSalary"/>
+            </div>
+            
+            <div id="buttonBox">
+                <div></div>
+                <button type="button" id="inputButton" onclick="readyToRun()">Submit</button>
+            </div>
+        </form>
     </div>
-    <div>Employees</div>
     <div>
-        <table id="tableStuff">
+        <h3>Employees</h3>
+    </div>
+    <div>
+        <table>
             <thead>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -35,13 +46,22 @@
                 <th>Annual Salary</th>
                 <th></th>
             </thead>
+            <tbody id="tableStuff">
+                
+            </tbody>
+        </table>
+        <table id="emptyFooter">
+            <thead><th>SECRET TEXT</th></thead>
         </table>
     </div>
-    <div>Table footer</div>
+    <div><br></div>
     <div><br></div>
     <footer>
-        <div>Total Monthly: </div>
-        <div class="monthlyTotal">0</div>
+        <div class="gridded">
+            <div></div> 
+            <div>Total Monthly: </div>
+            <div class="monthlyTotal">0</div>
+        </div>
     </footer>
 </body>
 </html>
