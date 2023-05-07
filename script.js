@@ -77,6 +77,7 @@ function updateMonthly() {
     for (let x of infoMatrix) {
         calculatedTotal+=x.annualSalary/12;
     }
+    calculatedTotal=Math.round(calculatedTotal*100)/100;
     //remove old monthly total from the DOM
     $('.monthlyTotal').empty();
     //add new monthly total to the DOM
