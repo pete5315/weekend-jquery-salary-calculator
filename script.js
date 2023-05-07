@@ -15,9 +15,16 @@ function createObject() {
     let firstName = $('#firstName').val(), lastName = $('#lastName').val(), idNumber= $('#idNumber').val(), titleInput = $('#titleInput').val(), annualSalary = $('#annualSalary').val();
     //test if any fields were blank
     if(firstName===""||lastName===""||idNumber===""||titleInput===""||annualSalary===""){
-        alert("fields empty, please resubmit");
+        alert("Field(s) empty, please resubmit");
+        return;
+    }
+    //test if ID has already been added]
+    for(let x of infoMatrix) {
+        if(x.id===idNumber) {
+            alert("This ID has already been added, please resubmit");
             return;
         }
+    }
     //update our temporary object to hold inputted data
     inputInfo={
     firstName: firstName, 
